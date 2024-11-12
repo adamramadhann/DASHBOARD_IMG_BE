@@ -1,8 +1,9 @@
 import express from "express"
 import cors from "cors"
 import env from "dotenv"
-import RouteAUth from "./auth/RouthAuth"
 import path from "path"
+import { RouteProduck } from "./route/RouteProduck"
+import RouteAUth from "./route/RouthAuth"
 
 const app = express()
 env.config()
@@ -24,7 +25,9 @@ app.get("/api/test", (req, res)=> {
 })
 
 app.use("/profile", express.static(path.join(__dirname,"../uploads/profile")))
+app.use("/images/product", express.static(path.join(__dirname, "../../uploads/products")))
 app.use(RouteAUth)
+app.use(RouteProduck)
 
 
 app.listen(PORT, ()=> {console.info(`
