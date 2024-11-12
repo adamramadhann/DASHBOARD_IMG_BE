@@ -5,7 +5,7 @@ const GetAllAuth = async (req = request, res = response) => {
     try {
         const result = await db.user.findMany()
         console.info(result)
-        res.status(201).json({message : "data al ready"})
+        res.status(201).json({message : "data al ready",result})
     } catch (error) {
         console.error(error)
     }

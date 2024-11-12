@@ -1,7 +1,7 @@
 // Import library yang diperlukan
 import { request, response } from "express"; // Mengimpor request dan response dari express
 import bcryptjs from "bcryptjs"; // Mengimpor bcryptjs untuk hashing password
-import db from "../conn"; // Mengimpor koneksi database
+import db from "../conn.js"; // Mengimpor koneksi database
 import path from "path"; // Mengimpor path untuk manipulasi path file
 import fs from "fs"; // Mengimpor fs untuk operasi file sistem
 
@@ -58,13 +58,16 @@ const Register = async (req = request, res = response) => {
         const imagePath = path.join(imageDir, `${email}-profile.${extensi}`);
         fs.writeFileSync(imagePath, buffer); // Menyimpan gambar ke file
 
+        // ambil bagian yang kita perlukan
+        const fileName = `${email}-profile.${extensi}`
+
         // Menyimpan data user ke database
         const result = await db.user.create({
             data: {
                 username: name, // Menggunakan nama sebagai username
                 email: emailLower, // Menyimpan email yang sudah diubah menjadi huruf kecil
                 password: hashPassword, // Menyimpan password yang sudah dihash
-                imageProfile: imagePath, // Menyimpan path gambar profil
+                imageProfile: fileName, // Menyimpan path gambar profil
             },
         });
 
