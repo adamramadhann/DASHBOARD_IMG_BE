@@ -20,7 +20,7 @@ const EditUser = async (req = request, res = response ) => {
             })
         }
 
-        let emailCase = email.toLowerCase()
+        let emailCase = email ? email.toLowerCase() : user.email
 
         if(emailCase !== user.email) {
             const findUser = await db.user.findUnique({
